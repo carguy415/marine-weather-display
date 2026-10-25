@@ -1,0 +1,71 @@
+name: Build firmware and publish installer
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Add ESP32 board support
+        run: |
+          arduino-cli config init
+          arduino-cli config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          arduino-cli core update-index
+          arduino-cli core install esp32:esp32
+
+      - name: Install display libraries
+        run: |
+          arduino-cli lib install "Adafruit GFX Library"
+          arduino-cli lib install "Adafruit ST7735 and ST7789 Library"
+
+      - name: Compile classic ESP32 firmware
+        run: |
+          arduino-cli compile --fqbn esp32:esp32:esp32 \
+            --output-dir "$GITHUB_WORKSPACE/build" \
+            firmware/MarineWeather
+
+      - name: Copy the merged ESP32 image to the website
+        run: |
+          set -euo pipefail
+          echo 'Built files:'
+          ls -lh build/
+          MERGED=$(find build -maxdepth 1 -type f -name '*.merged.bin' -print -quit)
+          if [ -z "$MERGED" ]; then
+            echo 'Missing merged firmware image. Check ESP32 platform build output.' >&2
+            exit 1
+          fi
+          cp "$MERGED" site/firmware.bin
+          ls -lh site/firmware.bin
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload installer website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

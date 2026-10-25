@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071d2c">
+  <meta name="description" content="Install the DIY NOAA Marine Weather Display onto a classic ESP32 DevKit directly from your browser.">
+  <title>Marine Weather Display | ESP32 Installer</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#061725;color:#f1f8fc}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 70% -20%,#174961 0%,transparent 55%),#061725}
+    .shell{width:min(1040px,calc(100% - 32px));margin:auto;padding-bottom:72px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:30px 0;gap:12px}
+    .brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:.015em}
+    .wave{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#10374a;color:#76dfea;font-size:24px}
+    header .tag{font-size:12px;color:#b1d0dc;border:1px solid #2b5871;padding:8px 11px;border-radius:40px}
+    .hero{display:grid;grid-template-columns:1.35fr 1fr;gap:42px;align-items:center;padding:43px 0 25px}
+    .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#68d9ec;font-weight:800}
+    h1{font-size:clamp(36px,5.7vw,62px);line-height:1.04;letter-spacing:-.047em;margin:18px 0}
+    .intro{font-size:17px;line-height:1.7;color:#bdd0df;max-width:580px}
+    .labels{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px;color:#b6d6e4;font-size:13px}
+    .labels span{border:1px solid #386078;border-radius:40px;padding:8px 13px;background:#0f2b3d}
+    .device{border-radius:25px;padding:20px;background:#08121d;box-shadow:0 28px 80px #0008;border:9px solid #263847;min-height:300px}
+    .device .top{display:flex;justify-content:space-between;background:#123650;margin:-20px -20px 0;padding:15px 20px;font-size:12px;font-weight:700}
+    .alert{margin-top:14px;background:#a76426;color:#fff5e7;padding:9px 12px;border-radius:6px;font-weight:800;font-size:12px}
+    .smalltitle{font-size:11px;font-weight:800;color:#6ce7f1;margin:18px 0 7px;letter-spacing:.12em}
+    .readout{font-weight:750;font-size:21px;letter-spacing:-.025em}
+    .wavefoot{border-top:1px solid #4f8397;margin-top:30px;padding-top:13px;color:#dceff7;font-size:13px}
+    .panel{background:#0d2a3a;border:1px solid #27516a;border-radius:20px;padding:28px;margin-top:25px}
+    h2{margin:0 0 10px;font-size:24px;letter-spacing:-.02em}.muted{color:#b8ccd9;line-height:1.65}
+    .installbox{display:grid;grid-template-columns:1.1fr 1fr;gap:25px;align-items:center}
+    .install-action{background:#071c2b;border:1px solid #294b60;border-radius:14px;padding:23px;text-align:center}
+    esp-web-install-button{--esp-tools-button-color:#55cee5;--esp-tools-button-text-color:#042337;--esp-tools-button-border-radius:12px}
+    .note{font-size:12px;color:#97b6c8;line-height:1.6;margin-bottom:0}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+    .step{border:1px solid #28465b;border-radius:14px;background:#0b2535;padding:20px;min-height:180px}
+    .num{border-radius:50%;display:grid;place-items:center;background:#17445b;color:#83e7ef;width:32px;height:32px;font-size:13px;font-weight:800;margin-bottom:16px}
+    .step h3{margin:0 0 8px;font-size:17px}.step p{font-size:14px;color:#b1c8d6;line-height:1.6;margin:0}
+    code{padding:2px 5px;border-radius:4px;background:#183747;color:#aff0ed}
+    a{color:#8be9f0;text-underline-offset:3px}
+    .caution{border-left:3px solid #e9b363;padding:3px 0 3px 17px;color:#ddcaa9;font-size:14px;line-height:1.7;margin-top:18px}
+    footer{color:#8eacba;font-size:13px;line-height:1.7;margin-top:32px}
+    @media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:14px;gap:25px}.installbox{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.step{min-height:auto}.panel{padding:20px}.shell{width:min(100% - 26px,560px)}header .tag{display:none}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><div class="brand"><span class="wave">≋</span> Marine Weather Display</div><div class="tag">Open DIY ESP32 project · v0.5.3</div></header>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">NOAA coastal waters on your desk</div>
+        <h1>Build your own marine weather screen.</h1>
+        <p class="intro">Turn a classic ESP32 DevKit and a 2-inch ST7789 TFT into a NOAA marine forecast display. Install using USB, then choose your local marine forecast zone on your phone. No Arduino coding required for end users.</p>
+        <div class="labels"><span>240 × 320 TFT</span><span>NOAA text forecasts</span><span>30-minute updates</span><span>BOOT button navigation</span><span>Adjustable backlight timeout</span></div>
+      </div>
+      <div class="device" aria-label="Illustration of forecast display, not live weather data">
+        <div class="top"><span>TODAY</span><span style="color:#76ecf0">1 / 4</span></div>
+        <div class="alert">SMALL CRAFT ADVISORY</div>
+        <div class="smalltitle">WIND</div><div class="readout">NE winds 10 to 15 kt</div>
+        <div class="smalltitle">SEAS</div><div class="readout">2 to 3 ft</div>
+        <div class="wavefoot">WAVE DETAIL: NE 2 ft at 4 sec</div>
+        <div class="note" style="margin-top:12px">Sample layout, not current forecast.</div>
+      </div>
+    </section>
+
+    <section class="panel installbox" id="install">
+      <div>
+        <div class="eyebrow">Step 1 · USB installation</div>
+        <h2>Flash your ESP32</h2>
+        <p class="muted">Connect a <strong>classic ESP32-WROOM-32 DevKit</strong> to your computer using a data USB cable. Open this page in desktop Chrome or Edge and click Install. The firmware is the same for all supported NOAA forecast zones.</p>
+        <p class="note">Installing may erase existing code and device settings. Back up any sketch you want to keep.</p>
+      </div>
+      <div class="install-action">
+        <esp-web-install-button manifest="./manifest.json">
+          <button slot="activate" style="background:#55cee5;color:#072534;font-weight:800;font-size:16px;padding:16px 30px;border:0;border-radius:12px;cursor:pointer;max-width:100%">Connect &amp; Install</button>
+          <span slot="unsupported" class="note">Use Chrome or Edge on a desktop computer with Web Serial support.</span>
+          <span slot="not-allowed" class="note">The installer requires HTTPS. Visit this site through its secure GitHub Pages link.</span>
+        </esp-web-install-button>
+        <p class="note">The browser sends the firmware to your ESP32 over USB. This page does not ask for, see, or store your home Wi-Fi password.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="eyebrow">Steps 2–4 · Local setup</div>
+      <h2>Personalize your marine forecast</h2>
+      <p class="muted"><strong>Find your zone first:</strong> Open NOAA's <a href="https://www.weather.gov/marine/usamz" target="_blank" rel="noopener noreferrer">Coastal Marine Forecast Zone Map</a>, choose your coastal area, and note the six-character zone code (such as ANZ331) before joining the ESP32 temporary setup Wi-Fi.</p>
+      <div class="steps">
+        <div class="step"><div class="num">2</div><h3>Find the setup Wi-Fi</h3><p>After installation, the screen shows a network named <code>MARINEWX-...</code> and a randomly generated password for that particular ESP32. The password stays the same every time you return to setup.</p></div>
+        <div class="step"><div class="num">3</div><h3>Use your phone</h3><p>Join that network, then open <code>http://192.168.4.1</code>. Enter your home Wi-Fi name, password, NOAA marine zone, and preferred backlight timeout. Tap the arrow in the zone field to pick from saved zones; press and hold a saved zone to delete it.</p></div>
+        <div class="step"><div class="num">4</div><h3>Save and enjoy</h3><p>The ESP32 restarts and downloads the forecast. Press BOOT for the next period; the screen goes dark after your chosen timeout.</p></div>
+      </div>
+      <p class="muted">To change Wi-Fi, marine zone, or backlight timeout later, hold BOOT for <strong>4 seconds while the device is running</strong>. The setup network reappears using the same saved password, so your phone can remember it. The password is always displayed on the TFT. Example coastal forecast zones: ANZ331, ANZ335, ANZ232. The first version also recognizes AMZ, GMZ, and PZZ coastal forecast codes when NOAA publishes compatible text files.</p>
+      <p class="caution">Don't hold BOOT while plugging in or resetting the ESP32, since GPIO0 also controls programming mode. Do not rely on this hobby display as your only source of safety-critical marine forecasts or warnings.</p>
+    </section>
+    <section class="panel">
+      <h2>Hardware and wiring</h2>
+      <p class="muted">ESP32 DevKit + ST7789 2.0-inch, 240 × 320 SPI display with pins GND, VCC, SCL, SDA, RST, DC, CS, BL. Connections: GND→GND, VCC→3V3, SCL→GPIO18, SDA→GPIO23, RST→GPIO22, DC→GPIO19, CS→GPIO5, BL→GPIO27.</p>
+      <p class="muted">BL to GPIO27 is based on a measured 2.4mA backlight control connection on the original display. <strong>Check the electrical design of alternative modules before connecting their BL pins directly to an ESP32 GPIO.</strong></p>
+      <p class="muted">Find your NOAA coastal forecast zone using the <a href="https://www.weather.gov/marine/usamz" target="_blank" rel="noopener noreferrer">interactive Coastal Marine Forecast Zone Map</a>. More details are in the project README.</p>
+    </section>
+    <footer>Unofficial community project using publicly available NOAA / NWS forecasts. Not affiliated with or endorsed by NOAA, NWS, MakerWorld, or Espressif. Wi-Fi configuration stays on the ESP32. Source code is provided for review and adaptation.</footer>
+  </div>
+</body>
+</html>
